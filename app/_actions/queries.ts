@@ -32,10 +32,17 @@ export interface ProjectType {
   title: string;
   description: string;
   mainImage: string;
-  categories: string[];
+  categories: {_ref: string}[];
   startedAt: string;
   completedAt: string;
 }
+
+export interface CategoryType {
+  _id: string;
+  title: string;
+  description: string;
+}
+
 // Query for about page images
 const aboutPageImagesQuery = groq`*[_type == "gb-pictures" && route == "/about"] {
   title,
@@ -63,13 +70,19 @@ categories,
 }| order(position asc)`;
 
 
-const imageQuery = (route: string) => groq`*[_type == "gb-pictures" && route == "${route}"] {
+const imageQuery = (route?: string) => groq`*[_type == "gb-pictures" ${route ? `&& route == "${route}"` : ""}] {
   title,
   alt,
   caption,
   "imageUrl": image.asset->url,
   "dimensions": image.asset->metadata.dimensions,
   section
+}`;
+
+const categoriesQuery = groq`*[_type == "category"] {
+  _id,
+  title,
+  description
 }`;
 
 
@@ -91,6 +104,10 @@ export async function getProjectsData(): Promise<ProjectType[]> {
   return await client.fetch<ProjectType[]>(projectsQuery);
 }
 
-export async function getImages(route: string): Promise<ImageType[]> {
+export async function getImages(route?: string): Promise<ImageType[]> {
   return await client.fetch<ImageType[]>(imageQuery(route));
+}
+
+export async function getCategories(): Promise<CategoryType[]> {
+  return await client.fetch<CategoryType[]>(categoriesQuery);
 }

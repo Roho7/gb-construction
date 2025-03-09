@@ -51,7 +51,7 @@ export default async function BusinessPage() {
       
       {/* Hero Section */}
       <section className="relative h-[400px] md:h-[500px] w-full">
-        <div className="absolute inset-0 bg-blue-900/60 z-10" />
+        <div className="absolute inset-0 bg-gray-900/60 z-10" />
         {businessImages && <Image
           src={businessImages?.find(image => image.section === 'header')?.imageUrl || "/images/business-hero.jpg"}
           alt="GB Construction Business Segment"

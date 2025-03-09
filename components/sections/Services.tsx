@@ -6,7 +6,7 @@ import Link from "next/link";
 import { getImages, ImageType } from "@/app/_actions/queries";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
-import { motion, useAnimationControls, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useAnimationControls, useMotionValue } from "framer-motion";
 
 const services = [
   {
@@ -117,7 +117,7 @@ export function Services() {
         <div className="relative overflow-hidden pb-4">
           <motion.div 
             ref={containerRef}
-            className="flex gap-6"
+            className="flex gap-8"
             animate={controls}
             style={{ x }}
             onHoverStart={() => setIsPaused(true)}
@@ -126,34 +126,83 @@ export function Services() {
             {extendedServices.map((service, index) => (
               <motion.div 
                 key={`${service.id}-${index}`} 
-                className="w-[280px] flex-shrink-0 bg-white shadow-lg"
+                className="w-[320px] flex-shrink-0 bg-white rounded-xl overflow-hidden"
                 whileHover={{ 
                   scale: 1.05,
                   zIndex: 10,
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
                   transition: { duration: 0.3 }
                 }}
+                initial={{ boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" }}
                 onHoverStart={() => setIsPaused(true)}
                 onHoverEnd={() => setIsPaused(false)}
               >
-                <div className={cn("relative h-56 w-full", loading && "animate-pulse")}>
-                  {service.image && <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                  />}
+                <div className={cn("relative h-64 w-full overflow-hidden", loading && "animate-pulse")}>
+                  {service.image && (
+                    <motion.div className="absolute inset-0">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                      />
+                      {/* Gradient overlay that intensifies on hover */}
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"
+                        initial={{ opacity: 0.6 }}
+                        whileHover={{ opacity: 0.8 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                  )}
+                  
+                  {/* Title overlay on the image */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-xl font-bold mb-1 drop-shadow-md">{service.title}</h3>
+                    {/* Animated accent line */}
+                    <motion.div 
+                      className="h-0.5 bg-blue-400 w-12"
+                      whileHover={{ width: 60 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
                 </div>
+                
                 <div className="p-6 bg-white">
-                  <h3 className="text-lg font-bold mb-2">{service.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{service.caption}</p>
+                  <p className="text-sm text-gray-600 mb-5 line-clamp-3">{service.caption}</p>
+                  
                   <Link 
                     href={service.link} 
-                    className="inline-flex items-center text-sm font-medium text-[hsl(210,100%,40%)] hover:text-[hsl(210,100%,50%)]"
+                    className="group inline-flex items-center text-sm font-medium text-[hsl(210,100%,40%)] hover:text-[hsl(210,100%,50%)] relative"
                   >
-                    See more 
-                    <ArrowRight className="w-4 h-4 ml-1" />
+                    <span className="relative z-10">See more</span>
+                    {/* Animated arrow */}
+                    <motion.span 
+                      className="ml-1 relative z-10"
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.span>
+                    
+                    {/* Animated underline */}
+                    <motion.span 
+                      className="absolute bottom-0 left-0 h-[1px] bg-[hsl(210,100%,40%)]"
+                      initial={{ width: 0 }}
+                      whileHover={{ width: "100%" }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </Link>
                 </div>
+                
+                {/* Decorative corner accent */}
+                <motion.div 
+                  className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-400/20 to-transparent"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
               </motion.div>
             ))}
           </motion.div>
