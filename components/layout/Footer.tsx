@@ -11,7 +11,7 @@ export function Footer() {
               <span className="text-3xl font-bold tracking-tighter">GB Construction</span>
             </Link>
             <p className="text-sm text-gray-400 mb-6">
-              GB Construction is one of the world's leading water infrastructure construction groups. We are active in India and across Asia.
+              GB Construction is one of the world&apos;s leading water infrastructure construction groups. We are active in India and across Asia.
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-400 hover:text-white">
