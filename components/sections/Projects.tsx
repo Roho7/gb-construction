@@ -1,83 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-const projects = [
-  {
-    id: 1,
-    title: "West End Water Treatment Plant",
-    location: "Kolkata, India",
-    category: "water-treatment",
-    image: "/images/project-1.jpg",
-    link: "/projects/west-end-water-treatment",
-    type: "WATER TREATMENT",
-  },
-  {
-    id: 2,
-    title: "Tilya Park Water Treatment Plant",
-    location: "Tilya Park, Sweden",
-    category: "water-treatment",
-    image: "/images/project-2.jpg",
-    link: "/projects/tilya-park-water-treatment",
-    type: "PARKS",
-  },
-  {
-    id: 3,
-    title: "University of Connecticut, Local Hall",
-    location: "Connecticut, USA",
-    category: "education",
-    image: "/images/project-3.jpg",
-    link: "/projects/university-connecticut",
-    type: "SCHOOLS",
-  },
-  {
-    id: 4,
-    title: "Viaduc, Örebro Water Treatment Plant",
-    location: "Örebro, Sweden",
-    category: "water-treatment",
-    image: "/images/project-4.jpg",
-    link: "/projects/viaduc-orebro",
-    type: "HOMES",
-  },
-  {
-    id: 5,
-    title: "Luxury apartments in the heart of Kungsholmen",
-    location: "Stockholm, Sweden",
-    category: "residential",
-    image: "/images/project-5.jpg",
-    link: "/projects/luxury-apartments-kungsholmen",
-    type: "HOMES",
-  },
-  {
-    id: 6,
-    title: "Terminal 2 Renovation, Boston, MA",
-    location: "Boston, USA",
-    category: "infrastructure",
-    image: "/images/project-6.jpg",
-    link: "/projects/terminal-2-renovation",
-    type: "INFRASTRUCTURE",
-  },
-  {
-    id: 7,
-    title: "Houston Independent School District (HISD)",
-    location: "Houston, USA",
-    category: "education",
-    image: "/images/project-7.jpg",
-    link: "/projects/houston-school-district",
-    type: "SCHOOLS",
-  },
-  {
-    id: 8,
-    title: "Åkersberga Office Building",
-    location: "Åkersberga, Finland",
-    category: "commercial",
-    image: "/images/project-8.jpg",
-    link: "/projects/akersberga-office",
-    type: "OFFICES",
-  },
-];
+import { getProjectsData, ProjectType } from "@/app/_actions/queries";
 
 const filters = [
   { name: "SHOW ALL PROJECTS", value: "all" },
@@ -87,13 +13,22 @@ const filters = [
 ];
 
 export function Projects() {
+  const [projects, setProjects] = useState<ProjectType[]>([]);
   const [activeFilter, setActiveFilter] = useState("all");
   const [showAllProjects, setShowAllProjects] = useState(false);
 
   const displayedProjects = showAllProjects ? projects : projects.slice(0, 8);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const projects = await getProjectsData();
+      setProjects(projects);
+    };
+    fetchProjects();
+  }, []);
+
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20">
       <div className="container">
         <h2 className="text-3xl font-bold mb-12">Our Projects</h2>
         
@@ -117,22 +52,22 @@ export function Projects() {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {displayedProjects.map((project) => (
-            <div key={project.id} className="group">
-              <Link href={project.link} className="block">
+            <div key={project.title} className="group">
+              <Link href={project.title} className="block">
                 <div className="relative h-64 mb-4 overflow-hidden">
                   <Image
-                    src={project.image}
+                    src={project.mainImage}
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 mb-1">{project.type}</p>
+                  <p className="text-xs text-gray-500 mb-1">{project.categories}</p>
                   <h3 className="text-base font-semibold group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-gray-500">{project.location}</p>
+                  <p className="text-sm text-gray-500">{project.startedAt}</p>
                 </div>
               </Link>
             </div>

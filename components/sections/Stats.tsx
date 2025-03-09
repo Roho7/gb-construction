@@ -58,9 +58,8 @@ export function Stats() {
           <div className="relative rounded-lg overflow-hidden shadow-2xl">
             <div className="aspect-w-16 aspect-h-9">
               <iframe 
-                src="https://www.youtube.com/watch?v=Sqm_Do0QkAw" 
+                src="https://www.youtube.com/embed/Sqm_Do0QkAww" 
                 title="GB Construction Project Video 2019"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
                 className="w-full h-full"
               ></iframe>

@@ -1,3 +1,4 @@
+import { getProjectsData } from "@/app/_actions/queries";
 import Link from "next/link";
 
 const features = [
@@ -27,7 +28,8 @@ const features = [
   },
 ];
 
-export function About() {
+export async function  About() {
+  const projects = await getProjectsData();
   return (
     <section className="py-20">
       <div className="container">
@@ -50,11 +52,11 @@ export function About() {
 
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature) => (
-            <div key={feature.id} className="border-t border-gray-200 pt-6 group">
-              <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
-              <p className="text-gray-600 text-sm mb-4">{feature.description}</p>
-              <Link 
+          {projects.map((project) => (
+            <div key={project.title} className="border-t border-gray-200 pt-6 group">
+              <h3 className="text-lg font-semibold mb-3">{project.title}</h3>
+              <p className="text-gray-600 text-sm mb-4">{project.description}</p>
+              {/* <Link 
                 href={feature.link} 
                 className="inline-flex items-center text-xs font-medium text-primary group-hover:text-primary/80"
               >
@@ -62,7 +64,7 @@ export function About() {
                 <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </Link>
+              </Link> */}
             </div>
           ))}
         </div>

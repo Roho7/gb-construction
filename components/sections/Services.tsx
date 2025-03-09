@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getServicesData, ImageType } from "@/app/_actions/queries";
+import { getImages, ImageType } from "@/app/_actions/queries";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { motion, useAnimationControls, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
@@ -92,7 +92,7 @@ export function Services() {
   useEffect(() => {
     const fetchServicesImageData = async () => {
       try {
-        const data = await getServicesData();
+        const data = await getImages("/services");
         setServicesImageData(data);
         setLoading(false);
       } catch (error) {

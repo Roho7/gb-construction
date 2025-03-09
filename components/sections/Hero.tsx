@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { getHomePageData } from "@/app/_actions/queries";
+import { getImages } from "@/app/_actions/queries";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 
@@ -12,7 +12,7 @@ export function Hero() {
 
   useEffect(() => {
     const fetchHeroImage = async () => {
-      const images = await getHomePageData();
+      const images = await getImages("/home");
 
       setHeroImage(images[0].imageUrl);
     };
