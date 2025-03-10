@@ -1,37 +1,42 @@
 "use client";
 
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getImages, ImageType } from "@/app/_actions/queries";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
-import { motion, useAnimationControls, useMotionValue } from "framer-motion";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const services = [
   {
     id: 'water-treatment-plants',
     title: "Water Treatment Plants",
+    description: "Advanced water treatment solutions for clean, safe water supply to communities and industries.",
     link: "/business/water-treatment",
   },
   {
     id: 'water-intake-plants',
     title: "Raw Water Intake Plants",
+    description: "Efficient raw water intake systems designed for optimal performance and reliability.",
     link: "/business/raw-water",
   },
   {
     id: 'overhead-reservoirs',
     title: "Overhead Reservoirs",
+    description: "State-of-the-art overhead reservoir solutions for effective water storage and distribution.",
     link: "/business/overhead-reservoirs",
   },
   {
     id: 'radial-collector-well-projects',
     title: "Radial Collector Well Projects",
+    description: "Innovative radial collector well systems for sustainable groundwater extraction.",
     link: "/business/radial-collector",
   },
   {
     id: 'effluent-treatment-plants',
     title: "Effluent Treatment Plants",
+    description: "Comprehensive effluent treatment solutions for industrial and municipal wastewater.",
     link: "/business/effluent-treatment",
   },
 ];
@@ -39,55 +44,8 @@ const services = [
 export function Services() {
   const [loading, setLoading] = useState(true);
   const [servicesImageData, setServicesImageData] = useState<ImageType[]>([]);
-  const [isPaused, setIsPaused] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const controls = useAnimationControls();
-
-  const servicesDataWithImage = useMemo(() => {
-    return services.map(service => {
-      return {
-        ...service,
-        image: servicesImageData.find(img => img.section === service.id)?.imageUrl || null,
-        caption: servicesImageData.find(img => img.section === service.id)?.caption || null
-      }
-    })
-  }, [servicesImageData]);
-
-  // Clone services data to ensure continuous scrolling
-  const extendedServices = useMemo(() => {
-    return [...servicesDataWithImage, ...servicesDataWithImage, ...servicesDataWithImage];
-  }, [servicesDataWithImage]);
-
-  // Auto-scroll animation with Framer Motion
-  useEffect(() => {
-    if (loading) return;
-
-    const startScrolling = async () => {
-      // Calculate total width to scroll
-      const container = containerRef.current;
-      if (!container) return;
-      
-      const totalWidth = container.scrollWidth / 3;
-      
-      // Start the animation
-      if (!isPaused) {
-        await controls.start({
-          x: -totalWidth,
-          transition: {
-            duration: 30,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "loop"
-          }
-        });
-      } else {
-        controls.stop();
-      }
-    };
-
-    startScrolling();
-  }, [controls, isPaused, loading]);
+  const [activeService, setActiveService] = useState<string | null>(null);
+  const [hoveredService, setHoveredService] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchServicesImageData = async () => {
@@ -95,6 +53,10 @@ export function Services() {
         const data = await getImages("/services");
         setServicesImageData(data);
         setLoading(false);
+        // Set the first service as active by default
+        if (data.length > 0 && services.length > 0) {
+          setActiveService(services[0].id);
+        }
       } catch (error) {
         console.error('Error fetching services image data:', error);
         setLoading(false);
@@ -103,111 +65,144 @@ export function Services() {
     fetchServicesImageData();
   }, []);
 
+  // Get the image URL for a service
+  const getServiceImage = (serviceId: string) => {
+    return servicesImageData.find(img => img.section === serviceId)?.imageUrl || null;
+  };
+
+  // Get the caption for a service
+  const getServiceCaption = (serviceId: string) => {
+    return servicesImageData.find(img => img.section === serviceId)?.caption || null;
+  };
+
+  // Find the active service object
+  const activeServiceObj = services.find(service => service.id === activeService);
+  const activeImageUrl = activeService ? getServiceImage(activeService) : null;
+  const activeCaption = activeService ? getServiceCaption(activeService) : null;
+
   return (
-    <section className="py-20 relative overflow-hidden">
-      
+    <section className="py-20 bg-white relative">
       <div className="container">
-        <div className="text-center mb-12">
-          <h3 className="text-sm font-medium uppercase tracking-wider text-[hsl(210,100%,40%)] mb-2">OUR SERVICES</h3>
-          <div className="w-16 h-1 bg-[hsl(210,100%,40%)] mx-auto mb-6"></div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">What we Build</h2>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <h3 className="text-sm font-medium uppercase tracking-wider text-blue-600 mb-2">OUR SERVICES</h3>
+            <h2 className="text-3xl md:text-4xl font-bold">What We Build</h2>
+          </div>
+          
+          <Link 
+            href="/business" 
+            className="inline-flex items-center mt-4 md:mt-0 text-blue-600 font-medium hover:text-blue-800 transition-colors group"
+          >
+            View All Services
+            <span className="ml-1 transform group-hover:translate-x-1 transition-transform duration-300">
+              <ArrowRight className="w-4 h-4" />
+            </span>
+          </Link>
         </div>
 
-        {/* Services Carousel - Single Row with Framer Motion */}
-        <div className="relative overflow-hidden pb-4">
-          <motion.div 
-            ref={containerRef}
-            className="flex gap-8"
-            animate={controls}
-            style={{ x }}
-            onHoverStart={() => setIsPaused(true)}
-            onHoverEnd={() => setIsPaused(false)}
-          >
-            {extendedServices.map((service, index) => (
-              <motion.div 
-                key={`${service.id}-${index}`} 
-                className="w-[320px] flex-shrink-0 bg-white rounded-xl overflow-hidden"
-                whileHover={{ 
-                  scale: 1.05,
-                  zIndex: 10,
-                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                  transition: { duration: 0.3 }
-                }}
-                initial={{ boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" }}
-                onHoverStart={() => setIsPaused(true)}
-                onHoverEnd={() => setIsPaused(false)}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left side: Service list */}
+          <div className="lg:col-span-4 space-y-1">
+            {services.map((service) => (
+              <motion.button
+                key={service.id}
+                className={cn(
+                  "w-full text-left px-6 py-4 rounded-lg transition-all duration-300 relative overflow-hidden group",
+                  activeService === service.id 
+                    ? "bg-blue-600 text-white" 
+                    : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                )}
+                onClick={() => setActiveService(service.id)}
+                onMouseEnter={() => setHoveredService(service.id)}
+                onMouseLeave={() => setHoveredService(null)}
+                whileHover={{ x: 8 }}
+                transition={{ duration: 0.2 }}
               >
-                <div className={cn("relative h-64 w-full overflow-hidden", loading && "animate-pulse")}>
-                  {service.image && (
-                    <motion.div className="absolute inset-0">
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        fill
-                        className="object-cover"
-                      />
-                      {/* Gradient overlay that intensifies on hover */}
-                      <motion.div 
-                        className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"
-                        initial={{ opacity: 0.6 }}
-                        whileHover={{ opacity: 0.8 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </motion.div>
-                  )}
-                  
-                  {/* Title overlay on the image */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-xl font-bold mb-1 drop-shadow-md">{service.title}</h3>
-                    {/* Animated accent line */}
-                    <motion.div 
-                      className="h-0.5 bg-blue-400 w-12"
-                      whileHover={{ width: 60 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </div>
+                <div className="flex justify-between items-center">
+                  <h3 className="font-medium text-lg">{service.title}</h3>
+                  <ChevronRight className={cn(
+                    "w-5 h-5 transition-transform duration-300",
+                    activeService === service.id ? "text-white" : "text-blue-600",
+                    (activeService === service.id || hoveredService === service.id) ? "translate-x-1" : ""
+                  )} />
                 </div>
                 
-                <div className="p-6 bg-white">
-                  <p className="text-sm text-gray-600 mb-5 line-clamp-3">{service.caption}</p>
-                  
-                  <Link 
-                    href={service.link} 
-                    className="group inline-flex items-center text-sm font-medium text-[hsl(210,100%,40%)] hover:text-[hsl(210,100%,50%)] relative"
-                  >
-                    <span className="relative z-10">See more</span>
-                    {/* Animated arrow */}
-                    <motion.span 
-                      className="ml-1 relative z-10"
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.span>
-                    
-                    {/* Animated underline */}
-                    <motion.span 
-                      className="absolute bottom-0 left-0 h-[1px] bg-[hsl(210,100%,40%)]"
-                      initial={{ width: 0 }}
-                      whileHover={{ width: "100%" }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </Link>
-                </div>
-                
-                {/* Decorative corner accent */}
+                {/* Animated underline that appears on hover or when active */}
                 <motion.div 
-                  className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-400/20 to-transparent"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
+                  className={cn(
+                    "absolute bottom-0 left-0 h-0.5",
+                    activeService === service.id ? "bg-white" : "bg-blue-600"
+                  )}
+                  initial={{ width: 0 }}
+                  animate={{ 
+                    width: (activeService === service.id || hoveredService === service.id) ? "100%" : 0 
+                  }}
                   transition={{ duration: 0.3 }}
                 />
-              </motion.div>
+              </motion.button>
             ))}
-          </motion.div>
+          </div>
+          
+          {/* Right side: Featured service with image */}
+          <div className="lg:col-span-8">
+            <AnimatePresence mode="wait">
+              {activeService && (
+                <motion.div 
+                  key={activeService}
+                  className="bg-gray-50 rounded-xl overflow-hidden h-full"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+                    {/* Image side */}
+                    <div className={cn("relative h-64 md:h-full w-full", loading && "animate-pulse")}>
+                      {activeImageUrl ? (
+                        <Image
+                          src={activeImageUrl}
+                          alt={activeServiceObj?.title || "Service"}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-blue-100 flex items-center justify-center">
+                          <span className="text-blue-400">Image loading...</span>
+                        </div>
+                      )}
+                      {/* Subtle gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    </div>
+                    
+                    {/* Content side */}
+                    <div className="p-8 flex flex-col">
+                      <h3 className="text-2xl font-bold mb-4 text-gray-900">{activeServiceObj?.title}</h3>
+                      
+                      <p className="text-gray-600 mb-6">
+                        {activeCaption || activeServiceObj?.description || "Loading description..."}
+                      </p>
+                      
+                      <div className="mt-auto">
+                        <Link 
+                          href={activeServiceObj?.link || "/business"}
+                          className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                          Learn More
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-40 right-0 w-64 h-64 bg-blue-50 rounded-full opacity-30 -z-10 blur-3xl" />
+      <div className="absolute bottom-20 left-0 w-96 h-96 bg-blue-50 rounded-full opacity-30 -z-10 blur-3xl" />
     </section>
   );
 } 

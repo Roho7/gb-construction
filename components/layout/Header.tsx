@@ -1,100 +1,127 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { Menu, X, Phone } from "lucide-react";
 
 const navItems = [
-  { name: "HOME", href: "/" },
-  { name: "ABOUT US", href: "/about" },
-  { name: "BUSINESS SEGMENT", href: "/business" },
-  { name: "PROJECTS", href: "/projects" },
-  { name: "INVESTORS", href: "/investors" },
-  { name: "CONTACT US", href: "/contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Business", href: "/business" },
+  { name: "Projects", href: "/projects" },
+  { name: "Investors", href: "/investors" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Add scroll effect for transparent to solid header
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
 
   return (
-    <header className="w-full py-6 bg-background">
-      <div className="container flex items-center justify-between">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? "bg-white shadow-md py-4" 
+          : "bg-transparent py-6"
+      }`}
+    >
+      <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <span className="text-2xl font-bold tracking-tighter">GB Construction</span>
+        <Link href="/" className="flex items-center z-10">
+          <span className={`text-2xl font-bold tracking-tight ${scrolled ? 'text-blue-600' : 'text-white'}`}>
+            GB Construction
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-10">
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-medium hover:text-primary/80 transition-colors"
+              className={`text-sm font-medium transition-colors hover:text-blue-400 ${
+                scrolled ? 'text-gray-800' : 'text-white'
+              }`}
             >
               {item.name}
             </Link>
           ))}
+          
+          {/* Contact Button */}
+          <Button 
+            className={`ml-4 rounded-none px-6 py-5 flex items-center ${
+              scrolled 
+                ? "bg-blue-600 hover:bg-blue-700 text-white" 
+                : "bg-white hover:bg-gray-100 text-blue-600"
+            }`}
+          >
+            <Phone className="w-4 h-4 mr-2" />
+            Contact Us
+          </Button>
         </nav>
 
-        {/* Search and Menu Icons */}
-        <div className="flex items-center space-x-4">
-          <button aria-label="Search" className="p-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        {/* Mobile Menu Button */}
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={`lg:hidden ${scrolled ? 'text-gray-800' : 'text-white'}`} 
+              aria-label="Menu"
             >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
-          </button>
-
-          {/* Mobile Menu Button */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menu">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="4" x2="20" y1="12" y2="12" />
-                  <line x1="4" x2="20" y1="6" y2="6" />
-                  <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
-              <nav className="flex flex-col gap-6 mt-12">
+              <Menu className="w-6 h-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px] p-0">
+            <div className="flex flex-col h-full bg-white">
+              <div className="flex justify-between items-center p-6 border-b">
+                <span className="text-xl font-bold text-blue-600">GB Construction</span>
+                <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+              <nav className="flex flex-col p-6 space-y-6">
                 {navItems.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-base font-medium hover:text-primary/80 transition-colors"
+                    className="text-base font-medium text-gray-800 hover:text-blue-600 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-none w-full mt-4 py-6">
+                  <Phone className="w-4 h-4 mr-2" />
+                  Contact Us
+                </Button>
               </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
+              <div className="mt-auto p-6 border-t">
+                <p className="text-sm text-gray-500">
+                  © 2023 GB Construction. All rights reserved.
+                </p>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );

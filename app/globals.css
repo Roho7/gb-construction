@@ -46,15 +46,15 @@
 }
 
 :root {
-  --background: hsl(210, 20%, 98%);
+  --background: hsl(0, 0%, 100%);
   --foreground: hsl(210, 25%, 10%);
   --card: hsl(0, 0%, 100%);
   --card-foreground: hsl(210, 25%, 10%);
   --popover: hsl(0, 0%, 100%);
   --popover-foreground: hsl(210, 25%, 10%);
-  --primary: hsl(210, 100%, 40%);
+  --primary: hsl(210, 100%, 45%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(210, 70%, 30%);
+  --secondary: hsl(210, 70%, 35%);
   --secondary-foreground: hsl(0, 0%, 100%);
   --muted: hsl(210, 20%, 96%);
   --muted-foreground: hsl(210, 10%, 40%);
@@ -64,7 +64,7 @@
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: hsl(210, 20%, 90%);
   --input: hsl(210, 20%, 90%);
-  --ring: hsl(210, 100%, 40%);
+  --ring: hsl(210, 100%, 45%);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -73,12 +73,12 @@
   --radius: 0;
   --sidebar: hsl(0, 0%, 100%);
   --sidebar-foreground: hsl(210, 25%, 10%);
-  --sidebar-primary: hsl(210, 100%, 40%);
+  --sidebar-primary: hsl(210, 100%, 45%);
   --sidebar-primary-foreground: hsl(0, 0%, 100%);
   --sidebar-accent: hsl(200, 80%, 75%);
   --sidebar-accent-foreground: hsl(210, 25%, 10%);
   --sidebar-border: hsl(210, 20%, 90%);
-  --sidebar-ring: hsl(210, 100%, 40%);
+  --sidebar-ring: hsl(210, 100%, 45%);
 }
 
 .dark {
@@ -124,19 +124,6 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    background-image: 
-      linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px) !important;
-    background-size: 24px 24px !important;
-    background-attachment: fixed !important;
-  }
-  
-  .dark body {
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px) !important;
-    background-size: 24px 24px !important;
-    background-attachment: fixed !important;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -153,6 +140,34 @@
   }
   .container {
     @apply px-4 md:px-6 lg:px-8 max-w-7xl mx-auto;
+  }
+  
+  /* Modern section styling */
+  .section {
+    @apply py-16 md:py-24;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-12 relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-16 h-1 bg-blue-600 -mb-4;
+  }
+  
+  /* Modern card styling */
+  .card {
+    @apply bg-white shadow-lg transition-all duration-300 hover:shadow-xl;
+  }
+  
+  /* Button styling */
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 inline-flex items-center justify-center transition-colors duration-300;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 inline-flex items-center justify-center transition-colors duration-300;
   }
 }
 
@@ -176,5 +191,63 @@
     right: 0;
     bottom: 0;
     left: 0;
+  }
+  
+  /* Modern hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+  
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400;
+  }
+  
+  /* Image overlay */
+  .img-overlay {
+    @apply relative overflow-hidden;
+  }
+  
+  .img-overlay::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300;
+  }
+  
+  .img-overlay:hover::after {
+    @apply opacity-100;
+  }
+  
+  /* Hide scrollbar for horizontal carousels */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Project carousel styling */
+  .project-carousel {
+    @apply flex overflow-x-auto snap-x snap-mandatory;
+    scroll-behavior: smooth;
+  }
+  
+  .project-card {
+    @apply flex-shrink-0 snap-start transition-all duration-500;
+  }
+  
+  .project-card:hover {
+    @apply z-10;
+  }
+  
+  /* Horizontal scroll indicators */
+  .scroll-indicator {
+    @apply absolute bottom-0 left-0 h-1 bg-blue-500 transition-all duration-300;
+    width: var(--scroll-width, 0%);
   }
 }

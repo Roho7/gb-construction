@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getImages } from "@/app/_actions/queries";
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 export function Hero() {
   const [heroImages, setHeroImages] = useState<string[] | null>(null);
@@ -34,8 +34,8 @@ export function Hero() {
 
   return (
     <section className="relative">
-      {/* Main Hero */}
-      <div className="relative h-[80vh] bg-black">
+      {/* Full-screen Hero with large image */}
+      <div className="relative h-screen bg-black">
         {/* Image Slideshow */}
         {heroImages && heroImages.length > 0 && (
           <div className="absolute inset-0">
@@ -48,21 +48,21 @@ export function Hero() {
                 className="object-cover transition-opacity duration-1000"
                 priority={index === 0}
                 style={{ 
-                  opacity: index === currentImageIndex ? 0.6 : 0, // Fixed opacity value
+                  opacity: index === currentImageIndex ? 0.8 : 0, // Increased opacity for more vibrant images
                   zIndex: index === currentImageIndex ? 1 : 0
                 }}
               />
             ))}
             
-            {/* Dark overlay to improve text visibility */}
-            <div className="absolute inset-0 bg-black/30 z-2"></div>
+            {/* Subtle gradient overlay for better text visibility */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-2"></div>
             
-            {/* Image indicator dots */}
-            <div className="absolute top-8 left-0 right-0 flex justify-center gap-2">
+            {/* Modern image indicator dots - positioned at bottom */}
+            <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-3 z-20">
               {heroImages.map((_, index) => (
                 <button
                   key={index}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 z-[90] cursor-pointer ${
+                  className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
                     index === currentImageIndex 
                       ? "bg-white scale-110" 
                       : "bg-white/40 hover:bg-white/60"
@@ -75,86 +75,95 @@ export function Hero() {
           </div>
         )}
         
-        {/* Hero Content - Now with higher z-index and consistent styling */}
+        {/* Hero Content - Bold, modern typography with strong headline */}
         <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-6 lg:px-8 z-10">
           <div className="container mx-auto">
-            <div className="relative">
-              {/* Optional text shadow for better visibility */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 max-w-4xl drop-shadow-lg">
-                GB Construction
+            <div className="max-w-3xl">
+              {/* Large, bold headline with modern typography */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+                The <span className="text-blue-400">Leader</span> in Water Solutions
               </h1>
-              <p className="text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-md">
-                The leader in water management solutions
+              <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-2xl">
+                Building sustainable water infrastructure solutions that transform communities since 1983
               </p>
               
-              {/* Optional: Add a CTA button for better engagement */}
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg">
-                  Get in Touch
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+              {/* Modern CTA button with hover effect */}
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg px-8 py-6 text-lg rounded-none">
+                Request a Consultation
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Feature Boxes */}
-      <div className="container mx-auto -mt-24 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Feature Box 1 */}
-        <div className="relative overflow-hidden rounded-lg shadow-xl p-8 md:p-10 group">
-          {/* Gradient Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210,100%,40%)] to-[hsl(200,100%,30%)] transition-transform duration-700 group-hover:scale-105"></div>
-          
-          {/* Decorative Elements */}
-          <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-white opacity-10"></div>
-          <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-white opacity-5"></div>
-          
-          {/* Content */}
-          <div className="relative z-10 text-white">
-            <h2 className="text-2xl font-bold mb-4 group-hover:translate-x-1 transition-transform duration-300">
-              Welcome to GB Construction 
-            </h2>
-            <p className="text-white/90 mb-6 leading-relaxed">
-              G.B. Construction (GBC) was established in the year 2004 and since
-              inception GBC is engaged in Water System Management projects
-              especially Water Treatment Plants which are directly related to the
-              infrastructural development of our country and through the years, GB
-              has gained the confidence of their clients in the Government and
-              Semi-Government Sectors.
+      {/* Feature Boxes - Redesigned with cleaner, more modern look */}
+      <div className="bg-white py-20">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Feature Box 1 */}
+          <div className="bg-white p-8 group transition-all duration-300 hover:shadow-xl">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-gray-900">Water Treatment Plants</h3>
+            <p className="text-gray-600 mb-6">
+              Our advanced water treatment solutions ensure clean, safe water for communities and industries.
             </p>
             <Link
-              href="/about"
-              className="inline-flex items-center text-sm font-medium text-white hover:text-white/80 border-b border-transparent hover:border-white/50 pb-1 transition-all duration-300"
+              href="/business"
+              className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-all duration-300"
             >
-              EXPLORE MORE
+              Learn More
               <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </div>
-        </div>
 
-        {/* Feature Box 2 */}
-        <div className="relative overflow-hidden rounded-lg shadow-xl p-8 md:p-10 group">
-          {/* Gradient Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210,70%,30%)] to-[hsl(220,70%,20%)] transition-transform duration-700 group-hover:scale-105"></div>
-          
-          {/* Decorative Elements */}
-          <div className="absolute -bottom-20 -right-20 w-48 h-48 rounded-full bg-white opacity-5"></div>
-          <div className="absolute top-10 left-10 w-24 h-24 rounded-full bg-white opacity-5"></div>
-          
-          {/* Content */}
-          <div className="relative z-10 text-white">
-            <h2 className="text-2xl font-bold mb-4 group-hover:translate-x-1 transition-transform duration-300">
-              Knowledge and foresight to shape sustainable places
-            </h2>
-            <p className="text-white/90 mb-6 leading-relaxed">
-              Dedicated to leveraging our expertise in knowledge and insight about
-              engineering excellence, we create sustainable water infrastructure
-              that transforms communities and improves lives.
+          {/* Feature Box 2 */}
+          <div className="bg-white p-8 group transition-all duration-300 hover:shadow-xl">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-gray-900">Raw Water Intake Plants</h3>
+            <p className="text-gray-600 mb-6">
+              Efficient raw water intake systems designed for optimal performance and reliability.
             </p>
             <Link
               href="/projects"
-              className="inline-flex items-center text-sm font-medium text-white hover:text-white/80 border-b border-transparent hover:border-white/50 pb-1 transition-all duration-300"
+              className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-all duration-300"
             >
-              VIEW PROJECTS
+              View Projects
+              <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </div>
+
+          {/* Feature Box 3 */}
+          <div className="bg-white p-8 group transition-all duration-300 hover:shadow-xl">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-gray-900">Overhead Reservoirs</h3>
+            <p className="text-gray-600 mb-6">
+              State-of-the-art overhead reservoir solutions for effective water storage and distribution.
+            </p>
+            <Link
+              href="/about"
+              className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-all duration-300"
+            >
+              Explore Solutions
               <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </div>
