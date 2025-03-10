@@ -89,7 +89,7 @@ export default async function AboutPage() {
             <div className="bg-white p-8 shadow-sm">
               <h3 className="text-xl font-bold mb-4 text-gray-900">Reputation & Business Disruption</h3>
               <p className="text-gray-600 mb-6">
-                GBC's legal team addresses potential legal challenges to protect reputation and minimize business disruption.
+                GBC&apos;s legal team addresses potential legal challenges to protect reputation and minimize business disruption.
               </p>
               <Link 
                 href="/business" 
@@ -139,7 +139,7 @@ export default async function AboutPage() {
               <h2 className="text-3xl font-bold mb-6 text-gray-900">Efficient Resolution Approach</h2>
               <div className="w-16 h-1 bg-blue-600 mb-8"></div>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                In our case study process, we utilized an efficient resolution approach tailored to the client's specific needs and objectives. Through meticulous analysis, strategic planning, and effective execution, we guided the client towards successful outcomes while minimizing disruption to their operations throughout the process.
+                In our case study process, we utilized an efficient resolution approach tailored to the client&apos;s specific needs and objectives. Through meticulous analysis, strategic planning, and effective execution, we guided the client towards successful outcomes while minimizing disruption to their operations throughout the process.
               </p>
               
               <div className="mt-8">
@@ -171,7 +171,7 @@ export default async function AboutPage() {
                 />
               </div>
               <div className="absolute bottom-0 left-0 right-0 bg-blue-900/90 p-8 text-white">
-                <p className="italic font-medium text-lg">"Highly satisfied with exceptional legal service."</p>
+                <p className="italic font-medium text-lg">Highly satisfied with exceptional legal service.</p>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default async function AboutPage() {
             <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Leadership Team</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-8"></div>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Meet the experienced professionals who guide our company's vision and operations.
+              Meet the experienced professionals who guide our company&apos;s vision and operations.
             </p>
           </div>
           
@@ -203,7 +203,7 @@ export default async function AboutPage() {
                 <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Sanjay Gupta</h3>
                 <p className="text-blue-600 mb-4">Founder & Chairman</p>
                 <p className="text-gray-600">
-                  Leading GB Construction's mission to transform water infrastructure for over 4 decades.
+                  Leading GB Construction&apos;s mission to transform water infrastructure for over 4 decades.
                 </p>
               </div>
             </div>
@@ -284,14 +284,14 @@ export default async function AboutPage() {
               <h2 className="text-3xl font-bold mb-6 text-gray-900">Join Our Team</h2>
               <div className="w-16 h-1 bg-blue-600 mb-8"></div>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                At GB Construction, we're always looking for talented individuals who are passionate about water infrastructure and sustainable solutions. Join our team of experts and be part of creating innovative water management systems that transform communities.
+                At GB Construction, we&apos;re always looking for talented individuals who are passionate about water infrastructure and sustainable solutions. Join our team of experts and be part of creating innovative water management systems that transform communities.
               </p>
               
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6">
                   <h3 className="text-xl font-bold mb-2 text-gray-900">Civil Engineer</h3>
                   <p className="text-gray-600 mb-4">
-                    We're looking for experienced civil engineers with expertise in water treatment plant design and construction.
+                    We&apos;re looking for experienced civil engineers with expertise in water treatment plant design and construction.
                   </p>
                   <Link 
                     href="/careers" 

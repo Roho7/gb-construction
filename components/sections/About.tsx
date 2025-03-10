@@ -245,7 +245,7 @@ export function About() {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Leadership</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-8"></div>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Meet the experienced team leading GB Construction's mission to transform water infrastructure.
+              Meet the experienced team leading GB Constructions mission to transform water infrastructure.
             </p>
           </div>
 
