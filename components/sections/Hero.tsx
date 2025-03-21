@@ -55,7 +55,7 @@ export function Hero() {
             ))}
             
             {/* Subtle gradient overlay for better text visibility */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-2"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent z-2"></div>
             
             {/* Modern image indicator dots - positioned at bottom */}
             <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-3 z-20">
@@ -88,10 +88,10 @@ export function Hero() {
               </p>
               
               {/* Modern CTA button with hover effect */}
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg px-8 py-6 text-lg rounded-none">
+              {/* <Button className="bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg px-8 py-6 text-lg rounded-none">
                 Request a Consultation
                 <ChevronRight className="w-5 h-5 ml-2" />
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

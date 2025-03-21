@@ -1,11 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getImages } from "../_actions/queries";
-import { About } from "@/components/sections/About";
-import { ArrowRight, Award, BarChart3, Clock, Globe, Shield, Users } from "lucide-react";
+import { Shield, Users, Heart, Scale, Ban, AlertCircle, Lock, FileCheck, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About GB Construction - Our History & Vision",
@@ -82,57 +80,142 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-16 bg-gray-50">
+      {/* Company Policies Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 shadow-sm">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Reputation & Business Disruption</h3>
-              <p className="text-gray-600 mb-6">
-                GBC&apos;s legal team addresses potential legal challenges to protect reputation and minimize business disruption.
-              </p>
-              <Link 
-                href="/business" 
-                className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors group"
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Company Policies</h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto mb-8" />
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Our commitment to excellence is reflected in our comprehensive policies that ensure a professional, ethical, and inclusive workplace environment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                icon: Shield,
+                title: "Quality & Safety Standards",
+                content: "We uphold quality, safety, health, and environmental standards through strict SOPs, ensuring excellence in all our infrastructural projects. Continuous improvement remains a top priority."
+              },
+              {
+                icon: Users,
+                title: "HR Policies",
+                content: "Our HR policies promote a disciplined, ethical workforce, ensuring fairness, professionalism, and accountability while fostering a respectful and cooperative work environment."
+              },
+              {
+                icon: Heart,
+                title: "Workplace Culture",
+                content: "We value diversity, respect, and dignity, believing our success depends on employees' contributions and a supportive workplace culture."
+              },
+              {
+                icon: Scale,
+                title: "Code of Conduct",
+                content: "Employees must follow ethical conduct to maintain a harmonious, productive workplace. Misconduct, uncooperativeness, or disruptions may lead to disciplinary action, including termination."
+              },
+              {
+                icon: Ban,
+                title: "Anti-Harassment Policy",
+                content: "Harassment of any kind is strictly prohibited. We ensure a workplace free from discrimination based on race, caste, color, gender, or religion."
+              },
+              {
+                icon: AlertCircle,
+                title: "Conflict of Interest",
+                content: "Employees must disclose conflicts of interest to management to ensure ethical decision-making and maintain transparency in company operations."
+              },
+              {
+                icon: FileCheck,
+                title: "Business Ethics",
+                content: "Integrity is key—employees must avoid fraud, deception, or unfair dealings, ensuring ethical business practices at all times."
+              },
+              {
+                icon: Lock,
+                title: "Confidentiality",
+                content: "Confidential company information must be protected, and employees are prohibited from competing with the company during or after employment."
+              }
+            ].map((policy, index) => (
+              <div 
+                key={index}
+                className="group bg-white p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
               >
-                Learn More
-                <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-            
-            <div className="bg-white p-8 shadow-sm">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Minimize Operational Disruptions</h3>
-              <p className="text-gray-600 mb-6">
-                Our legal team works to minimize operational disruptions while addressing legal challenges effectively.
-              </p>
-              <Link 
-                href="/business" 
-                className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors group"
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <policy.icon className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900">{policy.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{policy.content}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Policy Commitment Banner */}
+      <section className="py-16 bg-blue-600 text-white">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h3 className="text-2xl font-bold mb-6">Our Commitment to Excellence</h3>
+            <p className="text-lg text-blue-100">
+              These policies reflect our dedication to maintaining the highest standards of professional conduct, 
+              ensuring a safe and inclusive workplace, and delivering exceptional value to our stakeholders.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Head Offices Section */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Our Head Offices</h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto mb-8" />
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Strategic locations across West Bengal delivering excellence in water infrastructure
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {[
+              "Balurghat W.T.P",
+              "Basirhat W.T.P",
+              "Bongaon W.T.P",
+              "New Town Intake",
+              "Nabadwip W.T.P",
+              "Sonarpur U.G.R",
+              "Pujali W.T.P",
+              "Purulia W.T.P",
+              "Bongaon W.T.P",
+              "Ranaghat Intake",
+              "Serampore W.T.P",
+              "Titagarh W.T.P"
+            ].map((location, index) => (
+              <div 
+                key={index}
+                className="group relative bg-gray-50 rounded-lg overflow-hidden hover:bg-blue-50 transition-colors duration-300"
               >
-                Learn More
-                <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-            
-            <div className="bg-white p-8 shadow-sm">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Tailored Legal Strategies</h3>
-              <p className="text-gray-600 mb-6">
-                We develop customized legal strategies including mediation and negotiation to achieve optimal outcomes.
-              </p>
-              <Link 
-                href="/business" 
-                className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors group"
-              >
-                Learn More
-                <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-2 h-2 rounded-full bg-blue-600" />
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <MapPin className="w-4 h-4 text-blue-600" />
+                    </div>
+                  </div>
+                  <h3 className="text-gray-900 font-medium group-hover:text-blue-600 transition-colors">
+                    {location}
+                  </h3>
+                </div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Efficient Resolution Approach */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1">
@@ -176,7 +259,7 @@ export default async function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Our Team */}
       <section className="py-16 bg-gray-50">
@@ -189,37 +272,20 @@ export default async function AboutPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white overflow-hidden shadow-sm">
-              <div className="relative h-[300px]">
-                <Image
-                  src="/images/founder.jpg"
-                  alt="Mr. Sanjay Gupta"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Sanjay Gupta</h3>
-                <p className="text-blue-600 mb-4">Founder & Chairman</p>
-                <p className="text-gray-600">
-                  Leading GB Construction&apos;s mission to transform water infrastructure for over 4 decades.
-                </p>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             <div className="bg-white overflow-hidden shadow-sm">
               <div className="relative h-[300px]">
                 <Image
-                  src="/images/director1.jpg"
-                  alt="Mr. Raj Sharma"
+                  src="/images/riju-ghoshal.png"
+                  alt="Mr. Riju Ghoshal"
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Raj Sharma</h3>
-                <p className="text-blue-600 mb-4">Managing Director</p>
+                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Riju Ghoshal</h3>
+                <p className="text-blue-600 mb-4">Sr. Manager - Operation</p>
                 <p className="text-gray-600">
                   With over 25 years of experience in the water infrastructure industry, 
                   Raj leads our strategic initiatives and overall business operations.
@@ -230,15 +296,15 @@ export default async function AboutPage() {
             <div className="bg-white overflow-hidden shadow-sm">
               <div className="relative h-[300px]">
                 <Image
-                  src="/images/director2.jpg"
-                  alt="Ms. Priya Patel"
+                  src="/images/bhismadeb-konar.png"
+                  alt="Mr. Bhismadeb Konar"
                   fill
-                  className="object-cover"
+                  className=" object-top"
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-900">Ms. Priya Patel</h3>
-                <p className="text-blue-600 mb-4">Technical Director</p>
+                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Bhismadeb Konar</h3>
+                <p className="text-blue-600 mb-4">Sr. Manager - Projects</p>
                 <p className="text-gray-600">
                   Priya oversees all technical aspects of our projects, bringing innovative 
                   engineering solutions to complex water treatment challenges.
@@ -277,7 +343,7 @@ export default async function AboutPage() {
       </section>
 
       {/* JOIN US/CAREERS Section */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -340,7 +406,7 @@ export default async function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <Footer />
     </main>

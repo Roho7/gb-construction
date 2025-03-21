@@ -61,7 +61,7 @@ export default async function BusinessPage() {
         />}
         <div className="container relative z-20 h-full flex flex-col justify-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            Business Segment
+            Business
           </h1>
           <div className="w-20 h-1 bg-blue-400 mb-6" />
         </div>

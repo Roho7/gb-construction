@@ -13,7 +13,6 @@ const navItems = [
   { name: "Business", href: "/business" },
   { name: "Projects", href: "/projects" },
   { name: "Investors", href: "/investors" },
-  { name: "Contact", href: "/contact" },
 ];
 
 export function Header() {
@@ -72,6 +71,9 @@ export function Header() {
                 ? "bg-blue-600 hover:bg-blue-700 text-white" 
                 : "bg-white hover:bg-gray-100 text-blue-600"
             }`}
+            onClick={() => {
+              window.location.href = "/contact";
+            }}
           >
             <Phone className="w-4 h-4 mr-2" />
             Contact Us
@@ -94,9 +96,6 @@ export function Header() {
             <div className="flex flex-col h-full bg-white">
               <div className="flex justify-between items-center p-6 border-b">
                 <span className="text-xl font-bold text-blue-600">GB Construction</span>
-                <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
-                  <X className="w-5 h-5" />
-                </Button>
               </div>
               <nav className="flex flex-col p-6 space-y-6">
                 {navItems.map((item) => (
