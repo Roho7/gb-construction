@@ -81,7 +81,7 @@ export default async function InvestorsPage() {
             <h2 className="text-3xl font-bold mb-6">Investor Resources</h2>
             <div className="w-20 h-1 bg-blue-600 mx-auto mb-8" />
             <p className="text-gray-600 text-lg">
-              Everything you need to know about investing in GB Construction's growth story
+              Everything you need to know about investing in GB Construction&apos;s growth story
             </p>
           </div>
 
