@@ -2,17 +2,44 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Background } from "@/components/layout/Background";
+import { Footer } from "@/components/layout/Footer";
+import { DataProvider } from "./_hooks/useData";
+import { Topbar } from "@/components/layout/Topbar";
+import { siteConfig } from "./_utils/utils";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
-export const metadata: Metadata = {
-  title: "GB Construction - Water Treatment Plants & Projects",
-  description: "GB Construction specializes in water treatment plants, raw water intake plants, overhead reservoirs, and radial collector well projects.",
-  keywords: "GB Construction, water treatment plants, raw water intake plants, overhead reservoirs, radial collector well projects",
-};
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: siteConfig().title,
+    description: siteConfig().description,
+    openGraph: {
+      title: siteConfig().title,
+      description: siteConfig().description,
+      type: 'website',
+      url: siteConfig().baseUrl,
+      images: [
+        {
+          url: siteConfig().ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig().name,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: siteConfig().title,
+      description: siteConfig().description,
+      images: [siteConfig().ogImage],
+      creator: siteConfig().twitter,
+    },
+  };
+}
 
 export default function RootLayout({
   children,
@@ -22,8 +49,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
+        <Topbar />
         <Background />
-        {children}
+        <DataProvider>
+          {children}
+        </DataProvider>
+        <Footer />
       </body>
     </html>
   );

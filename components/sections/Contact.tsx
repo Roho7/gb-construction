@@ -22,9 +22,9 @@ export function Contact() {
       <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div>
-            <h2 className="text-xl font-bold mb-2">Visit one of our offices around the world</h2>
-            <p className="text-white/80 text-sm">
-              GB Construction has offices in major cities across India and Asia
+            <h2 className="text-xl font-bold mb-2">Visit one of our offices around West Bengal</h2>
+              <p className="text-white/80 text-sm">
+                GB Construction has offices in major cities across West Bengal
             </p>
           </div>
           

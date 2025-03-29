@@ -1,39 +1,28 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+
+'use client'
 import { FileText, Download, BookOpen, FileCode, Building2 } from "lucide-react";
-import { getImages } from "../_actions/queries";
+import PageHeader from "@/components/layout/page-header";
+import { useData } from "../_hooks/useData";
+import { useMemo } from "react";
 
-export const metadata: Metadata = {
-  title: "Investor Relations - GB Construction",
-  description: "Access GB Construction's investor resources including corporate presentations, annual reports, company policies, and brochures.",
-};
 
-export default async function InvestorsPage() {
-  // Fetch investor page images
-  let investorImages = null;
-  try {
-    const imageData = await getImages("/investors");
-    if (imageData.length > 0) {
-      investorImages = imageData;
-    }
-  } catch (error) {
-    console.error("Error fetching investor images:", error);
-  }
 
-  const investorResources = [
+export default function InvestorsPage() {
+  const {documents} = useData();
+
+  const investorResources = useMemo(() => {
+    return [
     {
       title: "Corporate Presentation",
       description: "Comprehensive overview of GB Construction's business model, strategy, and growth prospects.",
       icon: Building2,
-      url: "https://gbconstruction.in/wp-content/uploads/2019/10/7.pdf"
+      url: documents.find((document) => document.caption === "company-policy")?.url
     },
     {
       title: "Annual Reports",
       description: "Detailed financial statements and performance metrics for informed investment decisions.",
       icon: FileText,
-      url: "https://gbconstruction.in/investors/#"
+      url: documents.find((document) => document.caption === "annual-reports")?.url
     },
     {
       title: "Company Policy",
@@ -46,33 +35,15 @@ export default async function InvestorsPage() {
       description: "Explore our services, projects, and commitment to excellence in water infrastructure.",
       icon: BookOpen,
       url: "https://gbconstruction.in/wp-content/uploads/2019/10/9.pdf"
-    }
-  ];
+  }]
+  }, [documents])
+  
+
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <Header />
-      
+    <main className="min-h-screen flex flex-col">      
       {/* Hero Section */}
-      <section className="relative h-[400px] md:h-[500px] w-full">
-        <div className="absolute inset-0 bg-gray-900/60 z-10" />
-        {investorImages && <Image
-          src={investorImages?.find(image => image.section === 'header')?.imageUrl || "/images/investors-hero.jpg"}
-          alt="GB Construction Investors"
-          fill
-          className="object-cover"
-          priority
-        />}
-        <div className="container relative z-20 h-full flex flex-col justify-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            Investor Relations
-          </h1>
-          <div className="w-20 h-1 bg-blue-400 mb-6" />
-          <p className="text-white text-xl max-w-2xl">
-            Access new oppourtunities to grow your wealth with GB Construction
-          </p>
-        </div>
-      </section>
+     <PageHeader title="For Investors" />
 
       {/* Investor Resources Section */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -116,7 +87,7 @@ export default async function InvestorsPage() {
       </section>
 
       {/* Why Invest Section */}
-      <section className="py-20 bg-blue-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-800 text-white">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8">Why Invest in GB Construction?</h2>
@@ -133,7 +104,7 @@ export default async function InvestorsPage() {
                   <FileText className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">200+ Projects</h3>
-                <p className="text-blue-100">Successfully completed projects across India</p>
+                <p className="text-blue-100">Successfully completed projects across West Bengal</p>
               </div>
               <div className="p-6">
                 <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center mx-auto mb-4">
@@ -146,8 +117,6 @@ export default async function InvestorsPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

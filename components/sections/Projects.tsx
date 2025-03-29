@@ -1,24 +1,20 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getCategories, getProjectsData, ProjectType } from "@/app/_actions/queries";
+import { CategoryType, getCategories, getProjectsData, ProjectType } from "@/app/_actions/queries";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { useData } from "@/app/_hooks/useData";
+import { Button } from "../ui/button";
 
-const filters = [
-  { name: "SHOW ALL PROJECTS", value: "all" },
-  { name: "SORT: NEWEST", value: "newest" },
-  { name: "TYPE", value: "type" },
-  { name: "COUNTRY", value: "country" },
-];
+
 
 export function Projects() {
-  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const { projects, categories } = useData();
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const [categories, setCategories] = useState<Record<string, string>>({});
   const carouselRef = useRef<HTMLDivElement>(null);
   
   // For horizontal scrolling
@@ -34,31 +30,18 @@ export function Projects() {
     }
   };
 
-  const displayedProjects = projects;
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const projects = await getProjectsData();
-      const categoriesData = await getCategories();
-      
-      // Create a lookup object with category ID as key and title as value
-      const categoriesMap = categoriesData.reduce((acc, category) => {
-        acc[category._id] = category.title;
-        return acc;
-      }, {} as Record<string, string>);
-      
-      setProjects(projects);
-      setCategories(categoriesMap);
-    };
-    fetchProjects();
-  }, []);
+  const displayedProjects = useMemo(() => projects.filter(project => {
+    if (activeFilter === "all") return true;
+    if (!project.categories) return false;
+    return project.categories.some(category => category._ref === activeFilter);
+  }), [projects, activeFilter]);
 
   // Helper function to get category titles from references
   const getCategoryTitles = (categoryRefs: Array<{_ref: string}> | undefined) => {
     if (!categoryRefs || categoryRefs.length === 0) return "Uncategorized";
     
     return categoryRefs
-      .map(ref => categories[ref._ref])
+      .map(ref => categories.find(c => c._id === ref._ref)?.title)
       .filter(Boolean) // Remove any undefined values
       .join(", ");
   };
@@ -73,18 +56,18 @@ export function Projects() {
           
           {/* Filters - Redesigned as minimal buttons */}
           <div className="flex flex-wrap gap-6 mt-6 md:mt-0">
-            {filters.map((filter) => (
+            {categories.map((category) => (
               <button
-                key={filter.value}
-                className={`text-sm font-medium transition-all duration-300 relative ${
-                  activeFilter === filter.value
+                key={category._id}
+                className={`text-sm font-medium transition-all duration-300 relative capitalize ${
+                  activeFilter === category._id
                     ? "text-white"
                     : "text-gray-400 hover:text-white"
                 }`}
-                onClick={() => setActiveFilter(filter.value)}
+                onClick={() => setActiveFilter(category._id)}
               >
-                {filter.name}
-                {activeFilter === filter.value && (
+                {category.title}
+                {activeFilter === category._id && (
                   <motion.div 
                     className="absolute -bottom-2 left-0 h-0.5 bg-blue-500" 
                     layoutId="activeFilter"
@@ -95,6 +78,7 @@ export function Projects() {
                 )}
               </button>
             ))}
+            <Button variant="ghost" size="sm" onClick={() => setActiveFilter("all")}>View All</Button>
           </div>
         </div>
       </div>

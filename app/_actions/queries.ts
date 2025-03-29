@@ -3,15 +3,6 @@
 import { groq } from "next-sanity";
 import { client, fetchSanity } from "./sanity";
 
-// Define TypeScript interfaces for your Sanity data
-export interface SanityImage {
-  _type: "image";
-  asset: {
-    _ref: string;
-    _type: "reference";
-  };
-}
-
 export interface ImageDimensions {
   width: number;
   height: number;
@@ -25,7 +16,15 @@ export interface ImageType {
   imageUrl: string;
   dimensions: ImageDimensions;
   section: string;
+  route: string;
   // Add any other fields you need
+}
+
+export interface DocumentType {
+  title: string
+  category: string
+  url: string
+  caption: string
 }
 
 export interface ProjectType {
@@ -76,7 +75,8 @@ const imageQuery = (route?: string) => groq`*[_type == "gb-pictures" ${route ? `
   caption,
   "imageUrl": image.asset->url,
   "dimensions": image.asset->metadata.dimensions,
-  section
+  section,
+  route
 }`;
 
 const categoriesQuery = groq`*[_type == "category"] {
@@ -86,18 +86,13 @@ const categoriesQuery = groq`*[_type == "category"] {
 }`;
 
 
-// Interface for homepage data
-export interface HomePageData {
-  title: string;
-  description: string;
-  sections: Array<{
-    _type: string;
-    heading: string;
-    subheading?: string;
-    content?: string;
-    image?: string;
-  }>;
-}
+const documentsQuery = groq`*[_type == "documents"] {
+  title,
+  category,
+  "url": file.asset->url,
+  caption
+}`;
+
 
 
 export async function getProjectsData(): Promise<ProjectType[]> {
@@ -110,4 +105,12 @@ export async function getImages(route?: string): Promise<ImageType[]> {
 
 export async function getCategories(): Promise<CategoryType[]> {
   return await client.fetch<CategoryType[]>(categoriesQuery);
+}
+
+export async function getDocuments(): Promise<DocumentType[]> {
+  return await client.fetch<DocumentType[]>(documentsQuery);
+}
+
+export async function getProjects(): Promise<ProjectType[]>{
+  return await client.fetch<ProjectType[]>(projectsQuery)
 }

@@ -15,10 +15,10 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+function CardTopbar({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      data-slot="card-header"
+      data-slot="card-Topbar"
       className={cn("flex flex-col gap-1.5 px-6", className)}
       {...props}
     />
@@ -65,4 +65,4 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export { Card, CardTopbar, CardFooter, CardTitle, CardDescription, CardContent }

@@ -76,7 +76,7 @@ export function About() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 Since 2004, GB Construction has been at the forefront of water infrastructure development, 
-                creating innovative solutions that transform communities and improve lives across India and Asia.
+                creating innovative solutions that transform communities and improve lives across West Bengal.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -146,7 +146,7 @@ export function About() {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Story</h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-8"></div>
             <p className="text-lg text-gray-600 leading-relaxed">
-              G.B. Construction (GBC) was established in 2004 with a vision to revolutionize water infrastructure in India. 
+              G.B. Construction (GBC) was established in 2004 with a vision to revolutionize water infrastructure in West Bengal. 
               Since inception, we have been engaged in Water System Management projects, especially Water Treatment Plants 
               which are directly related to the infrastructural development of our country. Through the years, 
               GB has gained the confidence of clients in Government and Semi-Government Sectors through our 

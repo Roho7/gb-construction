@@ -1,11 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { getImages } from "@/app/_actions/queries";
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, } from "lucide-react";
 
 export function Hero() {
   const [heroImages, setHeroImages] = useState<string[] | null>(null);
@@ -81,10 +80,10 @@ export function Hero() {
             <div className="max-w-3xl">
               {/* Large, bold headline with modern typography */}
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-                The <span className="text-blue-400">Leader</span> in Water Solutions
+               <span className="text-blue-400">Water Infrastructure</span> Easy and Affordable
               </h1>
               <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-2xl">
-                Building sustainable water infrastructure solutions that transform communities since 1983
+              Transforming communities with sustainable water infrastructure solutions since 2004.  
               </p>
               
               {/* Modern CTA button with hover effect */}

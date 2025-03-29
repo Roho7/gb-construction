@@ -81,10 +81,10 @@ function SheetContent({
   )
 }
 
-function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
+function SheetTopbar({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      data-slot="sheet-header"
+      data-slot="sheet-Topbar"
       className={cn("flex flex-col gap-1.5 p-4", className)}
       {...props}
     />
@@ -132,7 +132,7 @@ export {
   SheetTrigger,
   SheetClose,
   SheetContent,
-  SheetHeader,
+  SheetTopbar,
   SheetFooter,
   SheetTitle,
   SheetDescription,

@@ -1,9 +1,6 @@
 import { Metadata } from "next";
-import Image from "next/image";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { Mail, MapPin, Phone, Twitter, Instagram, Linkedin, Facebook, Youtube } from "lucide-react";
-import { getImages } from "../_actions/queries";
+import PageHeader from "@/components/layout/page-header";
 
 export const metadata: Metadata = {
   title: "Contact GB Construction - Get in Touch",
@@ -11,38 +8,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  // Fetch contact page images
-  let contactImages = null;
-  try {
-    const imageData = await getImages("/contact");
-    if (imageData.length > 0) {
-      contactImages = imageData;
-    }
-  } catch (error) {
-    console.error("Error fetching contact images:", error);
-  }
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <Header />
-      
+    <main className="min-h-screen flex flex-col">     
       {/* Hero Section */}
-      <section className="relative h-[400px] md:h-[500px] w-full">
-        <div className="absolute inset-0 bg-gray-900/60 z-10" />
-        {contactImages && <Image
-          src={contactImages?.find(image => image.section === 'header')?.imageUrl || "/images/contact-hero.jpg"}
-          alt="Contact GB Construction"
-          fill
-          className="object-cover"
-          priority
-        />}
-        <div className="container relative z-20 h-full flex flex-col justify-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            Contact Us
-          </h1>
-          <div className="w-20 h-1 bg-blue-400 mb-6" />
-        </div>
-      </section>
+      <PageHeader title="Contact Us" />
 
       {/* Contact Information Section */}
       <section className="py-16 bg-white">
@@ -159,8 +129,6 @@ export default async function ContactPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

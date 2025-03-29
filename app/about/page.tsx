@@ -1,48 +1,19 @@
-import { Metadata } from "next";
+'use client'
 import Image from "next/image";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { getImages } from "../_actions/queries";
 import { Shield, Users, Heart, Scale, Ban, AlertCircle, Lock, FileCheck, MapPin } from "lucide-react";
+import { useData } from "../_hooks/useData";
+import PageHeader from "@/components/layout/page-header";
 
-export const metadata: Metadata = {
-  title: "About GB Construction - Our History & Vision",
-  description: "Learn about GB Construction's journey, our mission, values, and the team behind our success in water infrastructure projects across India and Asia.",
-};
+export default function AboutPage() {
+  const {allImages} = useData();
 
-export default async function AboutPage() {
-  // Fetch data on the server
-  let aboutImages = null;
-  try {
-    const imageData = await getImages("/about");
-    if (imageData.length > 0) {
-      aboutImages = imageData;
-    }
-  } catch (error) {
-    console.error("Error fetching about images:", error);
-  }
+  const aboutImages = allImages?.filter(image => image.route === "/about");
     
   return (
     <main className="min-h-screen flex flex-col">
-      <Header />
-      
       {/* Hero Section - Clean and Professional */}
-      <section className="relative h-[400px] md:h-[500px] w-full">
-        <div className="absolute inset-0 bg-gray-900/60 z-10" />
-        {aboutImages && <Image
-          src={aboutImages?.find(image => image.section === 'header')?.imageUrl || "/images/business-hero.jpg"}
-          alt="GB Construction Business Segment"
-          fill
-          className="object-cover"
-          priority
-        />}
-        <div className="container relative z-20 h-full flex flex-col justify-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              About GB Construction
-          </h1>
-          <div className="w-20 h-1 bg-blue-400 mb-6" />
-        </div>
-      </section>
+      <PageHeader title="About GB Construction" />
+
 
       {/* Company Overview Section */}
       <section className="py-16 bg-white">
@@ -53,17 +24,22 @@ export default async function AboutPage() {
               <div className="w-16 h-1 bg-blue-600 mb-8"></div>
               <div className="space-y-6 text-gray-600">
                 <p className="text-lg leading-relaxed">
-                  GB Construction (GBC) was established in 1983 with a vision to revolutionize water infrastructure in India. 
-                  Since inception, we have been engaged in Water System Management projects, especially Water Treatment Plants 
-                  which are directly related to the infrastructural development of our country.
+                G.B. Construction (GBC) was established in 2004 and has been a trusted name in Water System Management,
+                specializing in Water Treatment Plants that support the country’s infrastructural growth. 
+                Over the years, GBC has built strong relationships with Government and Semi-Government sectors, 
+                demonstrating professionalism and expertise in turnkey project execution.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  The company has been recognized as one of the leading companies in the water treatment sector in India, 
-                  having delivered a diverse range of water filtration solutions across 15+ states.
+                As a fast-growing turnkey agency, GBC excels in constructing and commissioning surface water 
+                treatment plants of various types, including Clariflocculators and modern space-saving Plate/Tube 
+                Settler systems, particularly in Arsenic-affected areas. Additionally, GBC has successfully 
+                executed Underground and Overhead Reservoirs and extensive water distribution pipelines.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  GBC is committed to being among the superior quality firms in the field. Our well-established reputation 
-                  and acknowledged expertise have enabled us to successfully complete more than 200 projects across India.
+                Committed to timely project completion and client satisfaction, GBC upholds its reputation
+                 as a speedy and reliable executor. Under the leadership of Mr. Partha Guha, whose vision
+                  and expertise have propelled the company forward, GBC continues to expand its reach while 
+                  maintaining high ethical standards, making it a preferred choice in the industry.
                 </p>
               </div>
             </div>
@@ -75,6 +51,52 @@ export default async function AboutPage() {
                   fill
                   className="object-cover"
                 />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team */}
+      <section className="py-16 bg-gray-50">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Leadership Team</h2>
+            <div className="w-16 h-1 bg-blue-600 mx-auto mb-8"></div>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Meet the experienced professionals who guide our company&apos;s vision and operations.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div className="bg-white overflow-hidden shadow-sm">
+              <div className="relative h-[300px]">
+                <Image
+                  src="/images/riju-ghoshal.png"
+                  alt="Mr. Riju Ghoshal"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Riju Ghoshal</h3>
+                <p className="text-blue-600 mb-4">Sr. Manager - Operation</p>
+              </div>
+            </div>
+            
+            <div className="bg-white overflow-hidden shadow-sm">
+              <div className="relative h-[300px]">
+                <Image
+                  src="/images/bhismadeb-konar.png"
+                  alt="Mr. Bhismadeb Konar"
+                  fill
+                  className=" object-top"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Bhismadeb Konar</h3>
+                <p className="text-blue-600 mb-4">Sr. Manager - Projects</p>
+              </div>
             </div>
           </div>
         </div>
@@ -261,62 +283,8 @@ export default async function AboutPage() {
         </div>
       </section> */}
 
-      {/* Our Team */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Leadership Team</h2>
-            <div className="w-16 h-1 bg-blue-600 mx-auto mb-8"></div>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Meet the experienced professionals who guide our company&apos;s vision and operations.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <div className="bg-white overflow-hidden shadow-sm">
-              <div className="relative h-[300px]">
-                <Image
-                  src="/images/riju-ghoshal.png"
-                  alt="Mr. Riju Ghoshal"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Riju Ghoshal</h3>
-                <p className="text-blue-600 mb-4">Sr. Manager - Operation</p>
-                <p className="text-gray-600">
-                  With over 25 years of experience in the water infrastructure industry, 
-                  Raj leads our strategic initiatives and overall business operations.
-                </p>
-              </div>
-            </div>
-            
-            <div className="bg-white overflow-hidden shadow-sm">
-              <div className="relative h-[300px]">
-                <Image
-                  src="/images/bhismadeb-konar.png"
-                  alt="Mr. Bhismadeb Konar"
-                  fill
-                  className=" object-top"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-900">Mr. Bhismadeb Konar</h3>
-                <p className="text-blue-600 mb-4">Sr. Manager - Projects</p>
-                <p className="text-gray-600">
-                  Priya oversees all technical aspects of our projects, bringing innovative 
-                  engineering solutions to complex water treatment challenges.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Company Facts */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-800 text-white">
         <div className="container">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
@@ -407,8 +375,6 @@ export default async function AboutPage() {
           </div>
         </div>
       </section> */}
-
-      <Footer />
     </main>
   );
 } 
