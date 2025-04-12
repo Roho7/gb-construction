@@ -143,7 +143,7 @@ export function Projects() {
                     {project.title}
                   </h3>
                   
-                  <div className="flex items-center text-white/70 text-sm mb-4">
+                  <div className="flex items-center text-white/70 text-sm mb-4 capitalize">
                     <span>{getCategoryTitles(project.categories)}</span>
                   </div>
                   

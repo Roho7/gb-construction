@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Mail, MapPin, Phone, Twitter, Instagram, Linkedin, Facebook } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone, Twitter, Instagram, Linkedin, Facebook, Youtube } from "lucide-react";
 import Image from "next/image";
 export function Footer() {
   return (
@@ -17,32 +17,39 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               <Link 
-                href="#" 
+                href="https://www.linkedin.com/company/28685393/admin/" 
                 className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-colors"
               >
                 <span className="sr-only">LinkedIn</span>
                 <Linkedin className="h-5 w-5" />
               </Link>
               <Link 
-                href="#" 
+                href="https://twitter.com/gbcinfra" 
                 className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-colors"
               >
                 <span className="sr-only">Twitter</span>
                 <Twitter className="h-5 w-5" />
               </Link>
               <Link 
-                href="#" 
+                href="https://www.instagram.com/gbcinfrastructurepvtltd/" 
                 className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-colors"
               >
                 <span className="sr-only">Instagram</span>
                 <Instagram className="h-5 w-5" />
               </Link>
               <Link 
-                href="#" 
+                href="https://www.facebook.com/gbcipltd" 
                 className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-colors"
               >
                 <span className="sr-only">Facebook</span>
                 <Facebook className="h-5 w-5" />
+              </Link>
+              <Link 
+                href="https://www.youtube.com/@g.b.construction9456" 
+                className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-colors"
+              >
+                <span className="sr-only">Youtube</span>
+                <Youtube className="h-5 w-5" />
               </Link>
             </div>
           </div>
@@ -92,13 +99,20 @@ export function Footer() {
                 <MapPin className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
                 <span className="text-gray-600">
                   GB Construction<br />
-                  SE-123 45 Kolkata<br />
-                  India
+                  <p className="text-gray-600 mt-2">
+                    Regd. Office: <br />
+                    R-257 Bipasa Apartment, Haldia Mecheda Road, Purba<br />
+                    Srikrishnapur, P.S. -Sutahata, Purba Medinipur
+                  </p>
+                <p className="text-gray-600 mt-2">
+                Branch Office: <br />
+                196, Raja Rammohan Roy Road, Kolkata -700008
+                </p>
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
-                <span className="text-gray-600">+91 7903453725</span>
+                <span className="text-gray-600">033-24940412</span>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
@@ -110,7 +124,7 @@ export function Footer() {
           </div>
 
           {/* Column 4: Newsletter */}
-          <div>
+          {/* <div>
             <h3 className="text-sm font-bold uppercase tracking-wider mb-6 text-gray-900">Newsletter</h3>
             <p className="text-sm text-gray-600 mb-4">
               Subscribe to our newsletter to receive updates on our latest projects and offers.
@@ -133,7 +147,7 @@ export function Footer() {
                 By subscribing, you agree to our Privacy Policy.
               </p>
             </form>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -145,7 +159,7 @@ export function Footer() {
               © {new Date().getFullYear()} GB Construction. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/terms" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
+              {/* <Link href="/terms" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
                 Terms of Use
               </Link>
               <Link href="/privacy" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
@@ -153,7 +167,7 @@ export function Footer() {
               </Link>
               <Link href="/cookies" className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
                 Cookie Policy
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
