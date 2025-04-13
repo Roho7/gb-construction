@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { DataProvider } from "./_hooks/useData";
 import { Topbar } from "@/components/layout/Topbar";
 import { siteConfig } from "./_utils/utils";
-
+import WelcomeModal from "@/components/layout/welcome-modal";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -55,6 +55,7 @@ export default function RootLayout({
           {children}
         </DataProvider>
         <Footer />
+        <WelcomeModal />
       </body>
     </html>
   );

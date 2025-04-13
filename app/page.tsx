@@ -4,6 +4,7 @@ import { Stats } from "@/components/sections/Stats";
 import { Projects } from "@/components/sections/Projects";
 import { Contact } from "@/components/sections/Contact";
 import { DataProvider } from "./_hooks/useData";
+import PartnerBanner from "@/components/layout/partner-banner";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <Stats />
         <Projects />
         <Contact />
+        <PartnerBanner />
       </main>
     </div>
   );
