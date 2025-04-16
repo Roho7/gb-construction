@@ -24,7 +24,7 @@ export default function WelcomeModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px] max-w-[80vw]">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center">Welcome to GBC Infrastructure</DialogTitle>
         </DialogHeader>
@@ -43,7 +43,7 @@ export default function WelcomeModal() {
               <div className="w-24 h-24 relative">
                 <Image
                   src="/images/gbc-logo.png"
-                  alt="GBC Construction Logo"
+                  alt="GBC Infrastructure Logo"
                   fill
                   style={{ objectFit: 'contain' }}
                 />
@@ -55,7 +55,7 @@ export default function WelcomeModal() {
           {/* Stay Here Button */}
           <Button 
             variant="default"
-            className="w-full h-40 flex flex-col items-center justify-center gap-4 bg-white hover:bg-blue-50 border-2 border-blue-900"
+            className="w-full h-40 flex flex-col items-center justify-center gap-4 bg-gray-50 hover:bg-blue-50 border-2 "
             onClick={() => setIsOpen(false)}
           >
             <div className="w-24 h-24 relative">

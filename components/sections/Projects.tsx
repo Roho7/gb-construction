@@ -47,7 +47,7 @@ export function Projects() {
   };
 
   return (
-    <section className="py-20 bg-black text-white">
+    <section className="py-20 bg-black text-white overflow-x-hidden">
       <div className="container mb-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
           <div>

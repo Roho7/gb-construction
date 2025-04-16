@@ -44,7 +44,7 @@ export default function PartnerBanner() {
                   style={{ objectFit: 'contain' }}
                 />
               </div>
-              <span className="text-lg font-semibold text-white group-hover:text-blue-900 transition-colors duration-300">Visit GBC Construction</span>
+              <span className="text-lg font-semibold text-white group-hover:text-blue-900 transition-colors duration-300">Visit GBC Infrastructure</span>
             </Button>
 
             {/* Stay Here Button */}
@@ -56,12 +56,12 @@ export default function PartnerBanner() {
               <div className="w-24 h-24 relative">
                 <Image
                   src="/images/logo.png"
-                  alt="GBC Infrastructure Logo"
+                  alt="GB Construction Logo"
                   fill
                   style={{ objectFit: 'contain' }}
                 />
               </div>
-              <span className="text-lg font-semibold text-blue-900 group-hover:text-blue-900 transition-colors duration-300">Stay at GBC Infrastructure</span>
+              <span className="text-lg font-semibold text-blue-900 group-hover:text-blue-900 transition-colors duration-300">Stay at GB Construction</span>
             </Button>
           </div>
         </div>
