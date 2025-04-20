@@ -29,18 +29,15 @@ export default async function ContactPage() {
                 <div>
                   <h4 className="font-semibold mb-2">Registered Address:</h4>
                   <p className="text-gray-600">
-                    Basudevpur, Khanjanchak, Durgachak, Haldia,<br />
-                    East Midnapur. Pin – 721602,<br />
-                    West Bengal
+                  R-257 Bipasa Apartment, Haldia Mecheda Road, Purba<br />
+                  Srikrishnapur, P.S. -Sutahata, Purba Medinipur
                   </p>
                 </div>
                 
                 <div>
                   <h4 className="font-semibold mb-2">Branch Office:</h4>
                   <p className="text-gray-600">
-                    785/1B, Thakurpukur Road (Gr. Floor),<br />
-                    Near 3A Bus Stand, Kolkata.<br />
-                    Pin – 700063, West Bengal
+                  196, Raja Rammohan Roy Road, Kolkata -700008
                   </p>
                 </div>
               </div>
