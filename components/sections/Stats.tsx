@@ -53,7 +53,7 @@ export function Stats() {
               <iframe
                 width="1104"
                 height="599"
-                src="https://www.youtube.com/embed/Sqm_Do0QkAw"
+                src="https://www.youtube.com/embed/7PYo4ciIUek?si=ti2amHuh6ISoXO7M"
                 title="GBC PROJECT VIDEO 2019"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               ></iframe>
@@ -61,9 +61,9 @@ export function Stats() {
 
             {/* Video Overlay */}
             <div className="absolute bottom-0 left-0 bg-gradient-to-r from-[hsl(210,100%,40%)] to-[hsl(210,100%,30%)] text-white py-3 px-6 rounded-tr-lg">
-              <h3 className="text-lg font-bold">SONARPUR</h3>
+              <h3 className="text-lg font-bold">SWARUPNAGAR WTP</h3>
               <p className="text-xs opacity-80">
-                PROJECT VALUE: INR 10,00,00,000/-
+                  GB Construction
               </p>
             </div>
           </div>
